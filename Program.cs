@@ -35,8 +35,18 @@ namespace pr9
 
                         for (int i = 0; i < Mas.Length; i++)
                         {
-                            Console.Write($"Введите элемент массива [{i}]: ");
-                            Mas[i] = Convert.ToInt32(Console.ReadLine());
+                            try
+                            {
+                                Console.Write($"Введите элемент массива [{i}]: ");
+                                Mas[i] = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (FormatException fe)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine($"\nОшибка ввода элемента массива. Введите целое число. \n" + fe.Message);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                i--;
+                            }
                         }
 
                         for (int i = 0; i < Mas.Length; i++)
@@ -62,16 +72,19 @@ namespace pr9
 
                         for (int i = 1; i < Mas.Length; i++)
                         {
-                            if ((Mas[i] % 2 != 0 && Mas[i] % 3 != 0) && Mas[i] > max1)
+                            if (Mas[i] % 2 != 0 && Mas[i] % 3 != 0)
                             {
-                                max1 = Mas[i];
-                                max = i;
-                            }
+                                if (Mas[i] > max1)
+                                {
+                                    max1 = Mas[i];
+                                    max = i;
+                                }
 
-                            if ((Mas[i] % 2 != 0 && Mas[i] % 3 != 0) && Mas[i] < min1)
-                            {
-                                min1 = Mas[i];
-                                min = i;
+                                if (Mas[i] < min1)
+                                {
+                                    min1 = Mas[i];
+                                    min = i;
+                                }
                             }
                         }
 
