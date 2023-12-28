@@ -1,4 +1,4 @@
-﻿//***************************************************************
+//***************************************************************
 //* Практическая работа № 9                                     *
 //* Выполнил: Пирогов Д., группа 2ИСП                           *
 //* Задание: составить программу обработки одномерных массивов  *
@@ -19,11 +19,8 @@ namespace pr9
             {
                 try
                 {
-                    Console.WriteLine("\nХотите ли вы бы запустить программу? (Да/Нет):");
+                    Console.WriteLine("\nХотите ли вы запустить программу? (Да/Нет):");
                     string a = Console.ReadLine();
-                    int i = 0, m = 15;
-                    int[] Mas = new int[m];
-                    bool err;
 
                     if (a == "Нет")
                     {
@@ -32,23 +29,62 @@ namespace pr9
                     }
                     else if (a == "Да")
                     {
-                        while (i < m)
+                        int[] Mas = new int[15];
+                        int sum = 0, product = 0;
+                        bool f = false;
+
+                        for (int i = 0; i < Mas.Length; i++)
                         {
-                            err = false; // ошибки нет
-                            Console.Write("Введите " + i + " элемент массива: ");
-                            try
-                            {
-                                Mas[i] = Convert.ToInt32(Console.ReadLine()); // запись числа в текущий элемент массива
-                            }
-                            catch (FormatException e) // обработка исключения
-                            {
-                                err = true; // ошибка ввода
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Возникла ошибка: " + e.Message);
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                            if (!err) i++; // если ошибки нет, то переход к следующему элементу массива
+                            Console.Write($"Введите элемент массива [{i}]: ");
+                            Mas[i] = Convert.ToInt32(Console.ReadLine());
                         }
+
+                        for (int i = 0; i < Mas.Length; i++)
+                        {
+                            if (Mas[i] % 2 != 0 && Mas[i] % 3 == 0)
+                            {
+                                sum += Mas[i];
+
+                                if (!f)
+                                {
+                                    f = true;
+                                    product = Mas[i];
+                                }
+                                else product *= Mas[i];
+                            }
+                        }
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"\nСумма нечетных элементов, кратных 3: {sum}");
+                        Console.WriteLine($"Произведение нечетных элементов, кратных 3: {product}");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        int max = 0, min = 0, max1 = Mas[0], min1 = Mas[0];
+
+                        for (int i = 1; i < Mas.Length; i++)
+                        {
+                            if ((Mas[i] % 2 != 0 && Mas[i] % 3 != 0) && Mas[i] > max1)
+                            {
+                                max1 = Mas[i];
+                                max = i;
+                            }
+
+                            if ((Mas[i] % 2 != 0 && Mas[i] % 3 != 0) && Mas[i] < min1)
+                            {
+                                min1 = Mas[i];
+                                min = i;
+                            }
+                        }
+
+                        Mas[max] = sum;
+                        Mas[min] = product;
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("\nИзмененный массив:");
+                        for (int i = 0; i < Mas.Length; i++)
+                        {
+                            Console.WriteLine($"Элемент массива [{i}]: {Mas[i]}");
+                        }
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
@@ -58,16 +94,16 @@ namespace pr9
                         continue;
                     }
                 }
-                catch (FormatException e) // частное исключение
+                catch (FormatException fe)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nОшибка ввода \n" + e.Message); // вывод ошибки на экран
+                    Console.WriteLine($"\nОшибка ввода \n" + fe.Message, ConsoleColor.Red);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-                catch (Exception e) // общее исключение
+                catch (Exception e)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nОшибка ввода \n" + e.Message); // вывод ошибки на экран
+                    Console.WriteLine($"\nОшибка ввода \n" + e.Message);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
