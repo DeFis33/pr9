@@ -110,7 +110,7 @@ namespace pr9
                 catch (FormatException fe)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nОшибка ввода \n" + fe.Message, ConsoleColor.Red);
+                    Console.WriteLine($"\nОшибка ввода \n" + fe.Message);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (Exception e)
