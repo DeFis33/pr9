@@ -19,6 +19,10 @@ namespace pr9
             {
                 try
                 {
+                    int[] Mas = new int[15];
+                    int sum = 0, product = 1, maxIndex = 0, minIndex = 0;
+                    bool NotEmpty = false;
+
                     Console.WriteLine("\nХотите ли вы запустить программу? (Да/Нет):");
                     string a = Console.ReadLine();
 
@@ -29,75 +33,38 @@ namespace pr9
                     }
                     else if (a == "Да")
                     {
-                        int[] Mas = new int[15];
-                        int sum = 0, product = 0;
-                        bool f = false;
-
                         for (int i = 0; i < Mas.Length; i++)
                         {
+                            Console.Write($"Элемент [{i + 1}]: ");
                             try
                             {
-                                Console.Write($"Введите элемент массива [{i}]: ");
-                                Mas[i] = Convert.ToInt32(Console.ReadLine());
+                                Mas[i] = int.Parse(Console.ReadLine());
+
+                                if (Mas[i] % 2 != 0 && Mas[i] % 3 == 0)
+                                {
+                                    sum += Mas[i];
+                                    product *= Mas[i];
+                                    NotEmpty = true;
+                                }
                             }
-                            catch (FormatException fe)
+                            catch (IndexOutOfRangeException ore)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nОшибка ввода элемента массива. Введите целое число. \n" + fe.Message);
+                                Console.WriteLine($"\nОшибка ввода \n" + ore.Message);
                                 Console.ForegroundColor = ConsoleColor.White;
                                 i--;
                             }
                         }
-
-                        for (int i = 0; i < Mas.Length; i++)
-                        {
-                            if (Mas[i] % 2 != 0 && Mas[i] % 3 == 0)
-                            {
-                                sum += Mas[i];
-
-                                if (!f)
-                                {
-                                    f = true;
-                                    product = Mas[i];
-                                }
-                                else product *= Mas[i];
-                            }
-                        }
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"\nСумма нечетных элементов, кратных 3: {sum}");
-                        Console.WriteLine($"Произведение нечетных элементов, кратных 3: {product}");
-                        Console.ForegroundColor = ConsoleColor.White;
-
-                        int max = 0, min = 0, max1 = Mas[0], min1 = Mas[0];
-
                         for (int i = 1; i < Mas.Length; i++)
                         {
-                            if (Mas[i] % 2 != 0 && Mas[i] % 3 != 0)
-                            {
-                                if (Mas[i] > max1)
-                                {
-                                    max1 = Mas[i];
-                                    max = i;
-                                }
+                            if (Mas[i] > Mas[maxIndex])
+                                maxIndex = i;
 
-                                if (Mas[i] < min1)
-                                {
-                                    min1 = Mas[i];
-                                    min = i;
-                                }
-                            }
+                            if (Mas[i] < Mas[minIndex])
+                                minIndex = i;
                         }
-
-                        Mas[max] = sum;
-                        Mas[min] = product;
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("\nИзмененный массив:");
-                        for (int i = 0; i < Mas.Length; i++)
-                        {
-                            Console.WriteLine($"Элемент массива [{i}]: {Mas[i]}");
-                        }
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Mas[maxIndex] = sum;
+                        Mas[minIndex] = product;
                     }
                     else
                     {
@@ -105,6 +72,15 @@ namespace pr9
                         Console.WriteLine("Введите Да или Нет! (Ввод ответа требуется с большой буквы)");
                         Console.ForegroundColor = ConsoleColor.White;
                         continue;
+                    }
+                    if (NotEmpty)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"\nИсходная сумма: {sum}");
+                        Console.WriteLine($"Исходное произведение: {product}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("\nИсходный массив: " + string.Join(", ", Mas));
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                 }
                 catch (FormatException fe)
