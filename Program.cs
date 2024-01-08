@@ -20,7 +20,7 @@ namespace pr9
                 try
                 {
                     int[] Mas = new int[15];
-                    int sum = 0, product = 1, maxIndex = 0, minIndex = 0;
+                    int sum = 0, product = 1, max = 0, min = 0;
                     bool NotEmpty = false;
 
                     Console.WriteLine("\nХотите ли вы запустить программу? (Да/Нет):");
@@ -57,14 +57,11 @@ namespace pr9
                         }
                         for (int i = 1; i < Mas.Length; i++)
                         {
-                            if (Mas[i] > Mas[maxIndex])
-                                maxIndex = i;
-
-                            if (Mas[i] < Mas[minIndex])
-                                minIndex = i;
+                            if (Mas[i] > Mas[max]) max = i;
+                            if (Mas[i] < Mas[min]) min = i;
                         }
-                        Mas[maxIndex] = sum;
-                        Mas[minIndex] = product;
+                        Mas[max] = sum;
+                        Mas[min] = product;
                     }
                     else
                     {
