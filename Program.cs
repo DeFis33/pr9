@@ -38,7 +38,7 @@ namespace pr9
                             Console.Write($"Элемент [{i + 1}]: ");
                             try
                             {
-                                Mas[i] = int.Parse(Console.ReadLine());
+                                Mas[i] = Int32.Parse(Console.ReadLine());
 
                                 if (Mas[i] % 2 != 0 && Mas[i] % 3 == 0)
                                 {
@@ -55,7 +55,7 @@ namespace pr9
                                 i--;
                             }
                         }
-                        for (int i = 1; i < Mas.Length; i++)
+                        for (int i = 0; i < Mas.Length; i++)
                         {
                             if (Mas[i] > Mas[max]) max = i;
                             if (Mas[i] < Mas[min]) min = i;
@@ -76,9 +76,10 @@ namespace pr9
                         Console.WriteLine($"\nИсходная сумма: {sum}");
                         Console.WriteLine($"Исходное произведение: {product}");
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\nИсходный массив: " + string.Join(", ", Mas));
+                        Console.WriteLine("\nИсходный массив: " + String.Join(", ", Mas));
                         Console.ForegroundColor = ConsoleColor.White;
                     }
+                    else Console.WriteLine("Условие не было выполнено.");
                 }
                 catch (FormatException fe)
                 {
